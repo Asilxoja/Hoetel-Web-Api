@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using HotelDemo.DataAccsesLayer.Entities;
+using HotelDemo.DataAccsesLayer.Entities.Staffs;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelDemo.DataAccsesLayer.Entities.Staffs;
+namespace HotelDemo.DTOAccsesLayer.DTOS.StaffDtos;
 
-public class Staff : BaseEntitiy
+public class StaffDto : BaseEntitiy
 {
-
     [StringLength(50, ErrorMessage = "Name length must be between 3 and 500 characters", MinimumLength = 3)]
     public string Username { get; set; } = string.Empty;
 

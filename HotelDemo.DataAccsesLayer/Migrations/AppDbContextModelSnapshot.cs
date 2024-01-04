@@ -22,6 +22,44 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EditedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Admin", b =>
                 {
                     b.Property<int>("Id")
@@ -41,7 +79,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admin");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", b =>
@@ -140,6 +178,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.Property<int>("AdminId")
                         .HasColumnType("int");
 
+                    b.Property<int>("AdminId1")
+                        .HasColumnType("int");
+
                     b.Property<int>("EndDate")
                         .HasColumnType("int");
 
@@ -155,6 +196,8 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("AdminId1");
 
                     b.HasIndex("GuestId");
 
@@ -246,23 +289,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.ToTable("RoomTypes");
                 });
 
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Staffs.Position", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Positions");
-                });
-
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Staffs.Staff", b =>
                 {
                     b.Property<int>("Id")
@@ -276,8 +302,8 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -292,8 +318,8 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FatherName")
                         .IsRequired()
@@ -307,8 +333,8 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -317,11 +343,12 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("PositionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -329,8 +356,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PositionId");
 
                     b.ToTable("Staffs");
                 });
@@ -340,6 +365,12 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.HasOne("HotelDemo.DataAccsesLayer.Entities.Admin", "Admin")
                         .WithMany()
                         .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HotelDemo.DataAccsesLayer.Admin", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("AdminId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -381,15 +412,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Staffs.Staff", b =>
+            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Admin", b =>
                 {
-                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Staffs.Position", "Position")
-                        .WithMany("StaffMembers")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Position");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomStatus", b =>
@@ -400,11 +425,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomType", b =>
                 {
                     b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Staffs.Position", b =>
-                {
-                    b.Navigation("StaffMembers");
                 });
 #pragma warning restore 612, 618
         }
