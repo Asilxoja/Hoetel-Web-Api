@@ -6,4 +6,8 @@ namespace HoetelDemoWebApi.Controllers;
 [Route("[controller]")]
 public class EmployeeController: ControllerBase
 {
+    public EmployeeController()
+    {
+        
+    }
 }

@@ -1,7 +1,5 @@
-using HotelDemo.BusnissLogicLayer.Interfaces;
-using HotelDemo.BusnissLogicLayer.Services;
-using HotelDemo.DataAccsesLayer.Repositories;
-using HotelDemo.DataccsesLayer.Interfaces;
+using HotelDemo.DataAccsesLayer;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +10,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #region Add DB Context 
-//builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-//        options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServer")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServer")));
 #endregion
 
 #region Add Interface and Service
 //builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddTransient<IEmployeeInterface, EmployeRepository>();
-builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+//builder.Services.AddTransient<IEmployeeInterface, EmployeRepository>();
+//builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+
+
 #endregion
 
 
