@@ -25,8 +25,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IStaffInterface, StaffRepository>();
 builder.Services.AddTransient<IAdminInterface, AdminRepository>();
+builder.Services.AddTransient<IRoomInterface, RoomRepository>();
+builder.Services.AddTransient<IRoomStatusInterface, RoomStatusRepository>();
+builder.Services.AddTransient<RoomStatusRepository, RoomStatusRepository>();
+builder.Services.AddTransient<IGuestInterface, GuestRepository>();
 
-
+//Add Service
 builder.Services.AddTransient<IStaffService, StaffService>();
 
 var mapperConfig = new MapperConfiguration(mc =>

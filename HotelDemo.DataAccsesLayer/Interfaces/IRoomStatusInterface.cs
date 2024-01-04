@@ -3,7 +3,7 @@ using HotelDemo.DataAccsesLayer.Entities.Rooms;
 
 namespace HotelDemo.DataAccsesLayer.Interfaces;
 
-public interface IRoomStatus: IRepository<RoomStatus>
+public interface IRoomStatusInterface: IRepository<RoomStatus>
 {
     int Id { get; }
     string Name { get; }

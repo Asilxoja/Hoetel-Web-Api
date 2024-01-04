@@ -11,8 +11,8 @@ public class RoomRepository(AppDbContext dbContext) : Repository<Room>(dbContext
     public int Number { get; set; }
     public int Price { get; set; }
     public int RoomTypeId { get; set; }
-    public RoomType RoomType { get; set; }
+    public RoomType RoomType { get; set; } = new();
     public int RoomStatusId { get; set; }
-    public RoomStatus RoomStatus { get; set; }
+    public RoomStatus RoomStatus { get; set; } = new();
 }
     

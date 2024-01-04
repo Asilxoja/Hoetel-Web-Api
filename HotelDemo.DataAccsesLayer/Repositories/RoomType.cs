@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace HotelDemo.DataAccsesLayer.Repositories
 {
-    public class RoomTypeRepository(AppDbContext dbContext) : Repository<RoomType>(dbContext), IRoomType
+    public class RoomTypeRepository(AppDbContext dbContext) : Repository<RoomType>(dbContext), IRoomTypeInterface
     {
         private readonly AppDbContext _dbContext = dbContext;
 

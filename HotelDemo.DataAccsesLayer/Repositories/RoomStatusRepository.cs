@@ -4,7 +4,7 @@ using HotelDemo.DataAccsesLayer.Interfaces;
 
 namespace HotelDemo.DataAccsesLayer.Repositories;
 
-public class RoomStatusRepository : Repository<RoomStatus>, IRoomStatus
+public class RoomStatusRepository : Repository<RoomStatus>, IRoomStatusInterface
 {
     private readonly AppDbContext _dbContext;
     public RoomStatusRepository(AppDbContext dbContext) : base(dbContext)
