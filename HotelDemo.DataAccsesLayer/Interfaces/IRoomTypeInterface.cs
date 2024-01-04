@@ -2,7 +2,7 @@
 
 namespace HotelDemo.DataAccsesLayer.Interfaces;
 
-public interface IRoomType : IRepository<RoomType>
+public interface IRoomTypeInterface : IRepository<RoomType>
 {
     int Id { get; set; }
     string Name { get; set; }
