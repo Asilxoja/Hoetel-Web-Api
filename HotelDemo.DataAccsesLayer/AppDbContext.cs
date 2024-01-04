@@ -13,7 +13,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<RoomType> RoomTypes { get; set; }
     public DbSet<RoomStatus> RoomStatuses { get; set; }
     public DbSet<Room> Rooms { get; set; }
-    public DbSet<Position> Positions { get; set; }
     public DbSet<Staff> Staffs { get; set; }
     public DbSet<Guest> Guests { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -32,12 +31,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
         modelBuilder.Entity<Staff>()
                        .HasKey(s => s.Id);
-
-        modelBuilder.Entity<Staff>()
-            .HasOne(s => s.Position)
-            .WithMany(p => p.StaffMembers)
-            .HasForeignKey(s => s.PositionId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Guest>()
                 .HasKey(g => g.Id);

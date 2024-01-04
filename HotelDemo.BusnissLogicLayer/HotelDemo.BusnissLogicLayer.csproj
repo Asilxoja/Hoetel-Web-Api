@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelDemo.DataAccsesLayer\HotelDemo.DataAccsesLayer.csproj" />
+    <ProjectReference Include="..\HotelDemo.DTOAccsesLayer\HotelDemo.DTOAccsesLayer.csproj" />
+  </ItemGroup>
+
 </Project>

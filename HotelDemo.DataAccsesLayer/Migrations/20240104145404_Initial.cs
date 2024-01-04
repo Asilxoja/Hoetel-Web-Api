@@ -12,7 +12,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admins",
+                name: "Admin",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,6 +20,24 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     FirstName = table.Column<int>(type: "int", nullable: false),
                     LastName = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admin", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AddedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,19 +86,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Positions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Positions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoomStatuses",
                 columns: table => new
                 {
@@ -108,6 +113,31 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Staffs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AddedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Staffs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -117,14 +147,21 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     AdminId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<int>(type: "int", nullable: false),
-                    EndDate = table.Column<int>(type: "int", nullable: false)
+                    EndDate = table.Column<int>(type: "int", nullable: false),
+                    AdminId1 = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Admins_AdminId",
+                        name: "FK_Orders_Admin_AdminId",
                         column: x => x.AdminId,
+                        principalTable: "Admin",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Admins_AdminId1",
+                        column: x => x.AdminId1,
                         principalTable: "Admins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -140,37 +177,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         principalTable: "OrderStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Staffs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    PositionId = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FatherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    AddedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EditedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Staffs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Staffs_Positions_PositionId",
-                        column: x => x.PositionId,
-                        principalTable: "Positions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,6 +213,11 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_AdminId1",
+                table: "Orders",
+                column: "AdminId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_GuestId",
                 table: "Orders",
                 column: "GuestId");
@@ -225,11 +236,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 name: "IX_Rooms_RoomTypeId",
                 table: "Rooms",
                 column: "RoomTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Staffs_PositionId",
-                table: "Staffs",
-                column: "PositionId");
         }
 
         /// <inheritdoc />
@@ -245,6 +251,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 name: "Staffs");
 
             migrationBuilder.DropTable(
+                name: "Admin");
+
+            migrationBuilder.DropTable(
                 name: "Admins");
 
             migrationBuilder.DropTable(
@@ -258,9 +267,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoomTypes");
-
-            migrationBuilder.DropTable(
-                name: "Positions");
         }
     }
 }
