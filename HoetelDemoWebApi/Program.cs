@@ -18,21 +18,26 @@ builder.Services.AddSwaggerGen();
 
 #region Add DB Context 
 builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServer")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServer")));
+
 #endregion
 
 #region Add Interface and Service
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IStaffInterface, StaffRepository>();
 builder.Services.AddTransient<IAdminInterface, AdminRepository>();
-builder.Services.AddTransient<IRoomInterface, RoomRepository>();
-builder.Services.AddTransient<IRoomStatusInterface, RoomStatusRepository>();
-builder.Services.AddTransient<RoomStatusRepository, RoomStatusRepository>();
 builder.Services.AddTransient<IGuestInterface, GuestRepository>();
+builder.Services.AddTransient<IOrderInterface, OrderRepository>();
+builder.Services.AddTransient<IOrderStatusInterface, OrderStatusRepository>();
+builder.Services.AddTransient<IRoomInterface,RoomRepository>();
+builder.Services.AddTransient<IRoomStatusInterface, RoomStatusRepository>();
+builder.Services.AddTransient<IRoomTypeInterface, RoomTypeRepository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 //Add Service
 builder.Services.AddTransient<IStaffService, StaffService>();
+#endregion
 
+#region Mapper Profile
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new AutoMapperProfile());
@@ -41,7 +46,6 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 #endregion
-
 
 var app = builder.Build();
 
