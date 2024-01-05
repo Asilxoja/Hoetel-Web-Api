@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HotelDemo.DTOAccsesLayer.DTOS.StaffDtos;
 
-public class AddStaffDto 
+public class AddStaffDto
 {
     [StringLength(50, ErrorMessage = "Name length must be between 3 and 500 characters", MinimumLength = 3)]
     public string Username { get; set; } = string.Empty;
